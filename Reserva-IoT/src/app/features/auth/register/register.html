@@ -1,0 +1,67 @@
+<div class="min-h-screen flex bg-white">
+  <div class="hidden lg:flex w-1/2 bg-emerald-800 p-12 flex-col justify-between text-white bg-[url('https://images.unsplash.com/photo-1511497584788-97679f010f44?q=80')] bg-cover bg-center bg-blend-multiply">
+    <h2 class="text-4xl font-bold">Junte-se à Rede de Pesquisa</h2>
+    <p class="text-lg opacity-80">Monitore biomas, analise dados e ajude a preservar o futuro das nossas reservas florestais.</p>
+    <div class="text-sm">© 2026 BioMonitor IoT</div>
+  </div>
+
+  <div class="w-full lg:w-1/2 p-8 md:p-16 overflow-y-auto">
+    <div class="max-w-md mx-auto">
+      <h1 class="text-3xl font-bold text-slate-800 mb-2">Criar conta</h1>
+      <p class="text-slate-500 mb-8">Preencha seus dados de pesquisador.</p>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="col-span-2">
+            <label class="block text-sm font-medium text-slate-700">Nome Completo</label>
+            <input type="text" formControlName="nome" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 outline-none">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-slate-700">E-mail</label>
+            <input type="email" formControlName="email" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 outline-none">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-slate-700">Matrícula</label>
+            <input type="text" formControlName="matricula" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700">Especialidade</label>
+          <input type="text" formControlName="especialidade" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700">Titulação</label>
+          <select formControlName="titulacao" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 outline-none">
+            <option value="Graduação">Graduação</option>
+            <option value="Especialização">Especialização</option>
+            <option value="Mestrado">Mestrado</option>
+            <option value="Doutorado">Doutorado</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700">Data de Nascimento</label>
+          <input type="date" formControlName="dataNascimento" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 outline-none">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700">Senha</label>
+          <input type="password" formControlName="senha" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 outline-none">
+        </div>
+
+        <button type="submit" [disabled]="registerForm.invalid || isLoading()" 
+                class="w-full bg-emerald-600 text-white py-3 rounded-lg font-bold hover:bg-emerald-700 transition disabled:opacity-50 shadow-lg shadow-emerald-200">
+          @if (isLoading()) { Cadastrando... } @else { Finalizar Cadastro }
+        </button>
+
+        <p class="text-center text-sm text-slate-600 mt-4">
+          Já tem conta? <a routerLink="/login" class="text-emerald-600 font-bold">Fazer login</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>

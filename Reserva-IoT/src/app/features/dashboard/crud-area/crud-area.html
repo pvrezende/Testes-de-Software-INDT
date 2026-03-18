@@ -1,0 +1,134 @@
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-2xl font-bold">Áreas</h1>
+
+  <button
+    (click)="toggleForm()"
+    class="bg-emerald-600 text-white px-4 py-2 rounded-xl">
+    + Nova Área
+  </button>
+</div>
+
+@if (showForm()) {
+  <div class="bg-slate-50 border border-slate-200 p-6 rounded-2xl shadow-sm mb-8">
+
+    <h2 class="font-bold text-lg mb-6 text-slate-800">
+      {{ editingId() ? 'Editar Área' : 'Cadastrar Área' }}
+    </h2>
+
+    <form [formGroup]="form" (ngSubmit)="salvar()" class="grid grid-cols-2 gap-5">
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Nome</label>
+        <input
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-800
+                 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
+          placeholder="Ex: Área Norte"
+          formControlName="nome" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Bioma</label>
+        <select
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-800
+                 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
+          formControlName="bioma">
+          <option value="">Selecione</option>
+          @for (b of biomas; track b) {
+            <option [value]="b">{{ b }}</option>
+          }
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Latitude</label>
+        <input type="number"
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white
+                 focus:ring-2 focus:ring-emerald-500 transition"
+          placeholder="-3.10" formControlName="latitude" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Longitude</label>
+        <input type="number"
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white
+                 focus:ring-2 focus:ring-emerald-500 transition"
+          placeholder="-60.01" formControlName="longitude" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Largura (m)</label>
+        <input type="number"
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white
+                 focus:ring-2 focus:ring-emerald-500 transition"
+          placeholder="1000" formControlName="largura" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Comprimento (m)</label>
+        <input type="number"
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white
+                 focus:ring-2 focus:ring-emerald-500 transition"
+          placeholder="2000" formControlName="comprimento" />
+      </div>
+
+      <div class="col-span-2">
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Descrição</label>
+        <textarea rows="3"
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white resize-none
+                 focus:ring-2 focus:ring-emerald-500 transition"
+          placeholder="Descrição da área"
+          formControlName="descricao"></textarea>
+      </div>
+
+      <div class="col-span-2 flex gap-3 pt-2">
+        <button type="submit" [disabled]="form.invalid"
+          class="bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300
+                 text-white px-6 py-2.5 rounded-xl font-semibold transition">
+          {{ editingId() ? 'Atualizar' : 'Salvar' }}
+        </button>
+        <button type="button" (click)="toggleForm()"
+          class="px-6 py-2.5 rounded-xl text-slate-600 hover:bg-slate-200 transition">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+}
+
+<div class="bg-white rounded-xl shadow">
+  <table class="w-full">
+    <thead class="bg-slate-100">
+      <tr>
+        <th class="p-3 text-left">Nome</th>
+        <th class="p-3 text-center">Bioma</th>
+        <th class="p-3 text-center">Dimensões (m)</th>
+        <th class="p-3 text-center">Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (area of areas(); track area.id) {
+        <tr class="border-t hover:bg-slate-50">
+          <td class="p-3 font-medium">{{ area.nome }}</td>
+          <td class="p-3 text-center">{{ area.bioma }}</td>
+          <td class="p-3 text-center">{{ area.largura }} x {{ area.comprimento }}</td>
+          <td class="p-3 text-center">
+            <div class="flex justify-center gap-2">
+              <button (click)="editar(area)"
+                class="px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition">
+                Editar
+              </button>
+              <button (click)="excluir(area.id)"
+                class="px-3 py-1.5 text-xs font-semibold text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-lg transition">
+                Excluir
+              </button>
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4" class="p-6 text-center text-slate-400">Nenhuma área cadastrada</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

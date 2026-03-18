@@ -1,0 +1,33 @@
+<div class="min-h-screen flex items-center justify-center bg-emerald-900 bg-[url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80')] bg-cover bg-blend-overlay">
+  <div class="bg-white/95 backdrop-blur p-8 rounded-2xl shadow-2xl w-full max-w-md">
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-emerald-800">BioMonitor</h1>
+      <p class="text-slate-500">Acesse o sistema de monitoramento</p>
+    </div>
+
+    @if (errorMessage()) {
+      <div class="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm border border-red-200">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-slate-700">Email</label>
+        <input type="email" formControlName="email" 
+               class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none transition">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-slate-700">Senha</label>
+        <input type="password" formControlName="senha" 
+               class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none transition">
+      </div>
+
+      <button type="submit" [disabled]="isLoading()"
+              class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg transition-all disabled:opacity-50">
+        @if (isLoading()) { <span>Entrando...</span> } @else { <span>Entrar</span> }
+      </button>
+    </form>
+  </div>
+</div>
